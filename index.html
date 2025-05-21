@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with Hana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/genai": "https://esm.sh/@google/genai@^0.15.0"
+      }
+    }
+  </script>
+  <!-- 
+    IMPORTANT: For local testing (opening index.html directly in the browser), 
+    the following script block is necessary to simulate process.env.API_KEY.
+    Replace "YOUR_ACTUAL_GEMINI_API_KEY" with your real API key.
+    This script MUST appear BEFORE index.js is loaded.
+    DO NOT commit your actual API key to version control if it's hardcoded here.
+  -->
+  <script>
+    console.log('Attempting to set up mock process.env for local testing...');
+    // Ensure this script runs before index.js loads and defines process.env.API_KEY.
+    window.process = window.process || {}; // Ensure window.process exists
+    window.process.env = window.process.env || {}; // Ensure window.process.env exists
+    
+    // --- REPLACE THE LINE BELOW WITH YOUR ACTUAL API KEY ---
+    window.process.env.API_KEY = "YOUR_ACTUAL_GEMINI_API_KEY";
+    // --- --- ---------------------------------------- --- ---
+
+    if (window.process.env.API_KEY && window.process.env.API_KEY !== "YOUR_ACTUAL_GEMINI_API_KEY") {
+      console.log('Mock process.env.API_KEY has been set successfully for local testing.');
+    } else if (window.process.env.API_KEY === "YOUR_ACTUAL_GEMINI_API_KEY") {
+      console.warn('CRITICAL SECURITY WARNING: API_KEY is still the placeholder "YOUR_ACTUAL_GEMINI_API_KEY". You MUST replace this with your real key in index.html for the app to work.');
+      alert('CRITICAL: API_KEY is not set. Please edit index.html and replace "YOUR_ACTUAL_GEMINI_API_KEY" with your actual Google Gemini API key.');
+    } else {
+      console.error('CRITICAL: Failed to set up mock process.env.API_KEY correctly in index.html.');
+      alert('CRITICAL: API_KEY setup failed. Check the script in index.html.');
+    }
+  </script>
+</head>
+<body>
+  <div id="app-container">
+    <header>
+      <img src="hana_avatar.png" alt="Hana Joken's avatar" id="hana-avatar">
+      <h1>Chat with Hana</h1>
+    </header>
+    <main>
+      <div id="chat-log" aria-live="polite" role="log">
+        <!-- Initial bot message will be populated by index.js -->
+      </div>
+      <form id="chat-form" aria-label="Chat input form">
+        <input type="text" id="message-input" placeholder="Send a signal to Hana..." aria-label="Your message" autocomplete="off">
+        <button type="submit" id="send-button" aria-label="Send message">Send Signal</button>
+      </form>
+    </main>
+    <footer>
+      <div id="memory-controls">
+        <input type="file" id="memory-file-input" accept=".txt" multiple hidden aria-label="Upload text files for Hana's memory">
+        <button id="upload-memory-button" aria-label="Upload text files to update Hana's memory">Upload Intel (.txt)</button>
+        <p id="memory-status" aria-live="polite"></p>
+      </div>
+      <p id="system-status-footer">SYSTEM ONLINE // MILITECH</p>
+    </footer>
+  </div>
+  <script type="module" src="index.js"></script>
+</body>
+</html><link rel="stylesheet" href="index.css">
